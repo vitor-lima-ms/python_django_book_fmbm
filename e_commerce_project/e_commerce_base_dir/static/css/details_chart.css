@@ -20,6 +20,12 @@ main{
     background-color: #253237;
     color: #C2DFE3;
 }
+#main_infos input {
+    border-radius: 5px;
+    color: #253237;
+    font-family: Montserrat;
+    font-weight: bold;
+}
 #buttons{
     display: flex;
     flex-direction: row;
@@ -39,6 +45,12 @@ main{
 }
 #products img{
     width: 100px;
+}
+#products input {
+    border-radius: 5px;
+    color: #253237;
+    font-family: Montserrat;
+    font-weight: bold;
 }
 h1{
     padding: 20px;

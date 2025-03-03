@@ -43,3 +43,10 @@ img{
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 1);
     transition: 300ms ease-in-out;
 }
+
+#buy input {
+    border-radius: 5px;
+    color: #253237;
+    font-family: Montserrat;
+    font-weight: bold;
+}

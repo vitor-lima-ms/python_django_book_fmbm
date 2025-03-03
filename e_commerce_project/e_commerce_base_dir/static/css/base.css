@@ -45,6 +45,10 @@ h1{
 }
 #header_buttons input{
     margin-right: 5px;
+    border-radius: 5px;
+    color: #253237;
+    font-family: Montserrat;
+    font-weight: bold;
 }
 nav{
     display: flex;
