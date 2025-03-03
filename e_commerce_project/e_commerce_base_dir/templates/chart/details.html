@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}| Carrinho{% endblock title %}
+
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "/css/details_chart.css" %}">
+{% endblock css %}
+
+{% block content %}
+<main>
+    <div id="main_infos">
+        {% if chart|length > 0 %}
+            <h2>Quantidade de items: {{ chart|length }}</h2>
+            <h2>Valor total: R$ {{ chart.get_grand_total }}</h2>
+            <div id="buttons">
+                <a href="{% url "main:products" %}"><input type="submit" value="Comprar mais produtos"></a>
+                <input type="submit" value="Finalizar">
+            </div> 
+    </div>
+    <div id="products">
+        <h2>Itens no carrinho</h2>
+        {% for item in chart %}
+            <table>
+                <thead>
+                    <th colspan="3">
+                        {{ item.product }}
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="4">
+                            <img src="{{ item.product.img.url }}" alt="Imagem do produto">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Quantidade</td>
+                        <td>{{ item.qtd }}</td>
+                    </tr>
+                    <tr>
+                        <td>Preço</td>
+                        <td>R$ {{ item.price }}</td>
+                    </tr>
+                    <tr>
+                        <td>Valor parcial</td>
+                        <td>R$ {{ item.subtotal }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <form action="{% url "chart:remove_from_chart" item.product.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Remover">
+                            </form>                         
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+    </div>
+    {% else %}
+        {% load static %}
+        <div id="carrinho_vazio">
+            <img id="carrinho_vazio" src="{% static "img/carrinho_vazio.png" %}" alt="Carrinho vazio">
+        </div>        
+    {% endif %}
+</main>
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "css/list.css" %}">
+{% endblock css %}
+
+
+{% block title %}
+
+{% if category %}
+| {{ category.name }}
+{% else %}
+| Produtos
+{% endif %}
+
+{% endblock title %}
+
+{% block content %}
+<div id="categories">
+    <h2>Categorias</h2>
+    <span>
+        <a href="/products/alimentos"><i class="fas fa-bread-slice"></i>Alimentos</a>
+    </span>
+    <span>
+        <a href="/products/eletroeletronicos"><i class="fas fa-laptop"></i>Eletroeletrônicos</a>
+    </span>
+    <span>
+        <a href="/products/limpeza"><i class="fas fa-broom"></i>Limpeza</a>
+    </span>
+    <span>
+        <a href="/products/mobiliario"><i class="fas fa-couch"></i>Mobiliário</a>
+    </span>
+    <span>
+        <a href="/products/utensilios-domesticos"><i class="fas fa-utensils"></i>Utensílios domésticos</a>
+    </span>
+</div>
+<main>
+    {% for product in product_list %}
+    <div class="product_div">
+        <img src="
+        {% if product.img %}
+        {{product.img.url}}
+        {% else %}
+        Sem imagem
+        {% endif %}
+        " alt="Imagem do produto">
+        <div id="product_name">
+            <h2><a href="/products/{{ product.id }}/{{ product.slug }}">{{ product.name }}</a></h2>
+        </div>
+        <div id="product_price">
+            <b>R$ {{ product.price }}</b>
+        </div>
+    </div>
+    {% endfor %}
+</main>
+{% endblock content %}

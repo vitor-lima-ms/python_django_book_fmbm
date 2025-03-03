@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>E-commerce {% block title %}{% endblock title %}</title>
+    <meta charset="utf8">
+    <meta name="author" content="Vitor Lima">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.css"
+        integrity="sha512-GmZYQ9SKTnOea030Tbiat0Y+jhnYLIpsGAe6QTnToi8hI2nNbVMETHeK4wm4MuYMQdrc38x+sX77+kVD01eNsQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
+    {% block css %}
+    {% endblock css %}
+</head>
+
+<body>
+    <header>
+        <div id="empty_div">
+
+        </div>
+        <div id="main_title">
+            <h1>Loja virtual</h1>
+        </div>
+        <div id="header_chart">
+            {% if chart|length == 0 %}
+                <span>
+                    <i class="fas fa-shopping-cart"></i><b>Carrinho</b>
+                </span>
+                Carrinho vazio
+            {% else %}
+                <span>
+                    <i class="fas fa-shopping-cart"></i><b>Carrinho</b>
+                </span>
+                <span>
+                    <b>Quantidade de items: </b><i>{{ chart|length }}</i>
+                </span>
+                <span>
+                    <b>Preço total: </b><i>R$ {{ chart.get_grand_total }}</i>
+                </span>
+                <div id="header_buttons">
+                    <form action="{% url 'chart:see_chart' %}" method="get">
+                        {% csrf_token %}
+                        <input type="submit" value="Ver carrinho">
+                    </form>
+                    <form action="{% url 'chart:clean_all_items' %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Limpar carrinho">
+                    </form>
+                </div>
+            {% endif %}
+        </div>                
+    </header>
+    {% include "snippets/nav_bar.html" %}
+    {% block content %}
+    {% endblock content %}
+    <footer>
+        <h6>Footer</h6>
+    </footer>
+</body>
+
+</html>
