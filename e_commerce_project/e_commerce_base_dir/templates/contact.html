@@ -1,13 +1,23 @@
 {% extends "base.html" %}
 
+{% block title %}| Contato{% endblock title %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static "/css/contact.css" %}">
+{% endblock css %}
+
 {% block content %}
-
-<h2>Fale conosco!</h2>
-
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Enviar">
-</form>
-
+    <main>
+        <h1>Mande sua mensagem!</h1>
+        <form id="contact_form" action="" method="POST">
+            {% csrf_token %}
+            <b>Nome: </b>{{ form.name }}
+            <b>E-mail: </b>{{ form.email }}
+            <b>Mensagem: </b>{{ form.msg }}
+            <div id="button_div">
+                <input id="button" type="submit" value="Enviar">
+            </div>            
+        </form>
+    </main>
 {% endblock content %}

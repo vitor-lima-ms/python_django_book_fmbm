@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}| Finalizar compra{% endblock title %}
+
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/create.css" %}">
+{% endblock css %}
+
+{% block content %}
+    <main>
+        {% if chart.get_grand_total == 0 %}
+            {% load static %}
+                <div id="empty_chart">
+                    <img src="{% static "img/carrinho_vazio.png" %}" alt="Carrinho vazio">
+                </div>
+        {% else %}
+            <div id="order_resume">
+                <h2>Resumo da compra</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Sub-total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in chart %}
+                        <tr>
+                            <td>{{ item.product }}</td>
+                            <td>{{ item.qtd }}</td>
+                            <td>R$ {{ item.subtotal }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="2">
+                                <b>Total</b>
+                            </td>
+                            <td>
+                                <b>R$ {{ chart.get_grand_total }}</b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <form id="final_form" action="{% url 'orders:complete' %}" method="post">
+                    {% csrf_token %}
+                    <h2>Informações do cliente</h2>
+                    <i>Nome: </i>{{ form.name }}
+                    <i>Logradouro: </i>{{ form.street }}
+                    <i>Número: </i>{{ form.house_number }}
+                    <i>Complemento: </i>{{ form.adress_complement }}
+                    <i>Bairro: </i>{{ form.neighborhood }}
+                    <i>Cidade: </i>{{ form.city }}
+                    <i>Estado: </i>{{ form.state }}
+                    <i>CEP: </i>{{ form.zip_code }}        
+                    <input id="send" type="submit" value="Enviar pedido">
+                </form>
+            </div>
+        {% endif %}        
+    </main>  
+{% endblock content %}

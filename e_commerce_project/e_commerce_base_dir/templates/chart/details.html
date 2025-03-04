@@ -17,7 +17,7 @@
             <h2>Valor total: R$ {{ chart.get_grand_total }}</h2>
             <div id="buttons">
                 <a href="{% url "main:products" %}"><input type="submit" value="Comprar mais produtos"></a>
-                <input type="submit" value="Finalizar">
+                <a href="{% url 'orders:create' %}"><input type="submit" value="Finalizar"></a>
             </div> 
     </div>
     <div id="products">
@@ -61,8 +61,8 @@
     </div>
     {% else %}
         {% load static %}
-        <div id="carrinho_vazio">
-            <img id="carrinho_vazio" src="{% static "img/carrinho_vazio.png" %}" alt="Carrinho vazio">
+        <div id="empty_chart">
+            <img src="{% static "img/carrinho_vazio.png" %}" alt="Carrinho vazio">
         </div>        
     {% endif %}
 </main>

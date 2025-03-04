@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.conf import settings
 from main.models import Product
+from django.shortcuts import get_object_or_404
 
 class ShopChart():
     def __init__(self, request):
@@ -21,6 +22,7 @@ class ShopChart():
 
         if product_id not in self.__chart:
             self.__chart[product_id] = {
+                'id': product_id,
                 'qtd': 0,
                 'price': str(product.price)
             }
@@ -29,6 +31,9 @@ class ShopChart():
             self.__chart[product_id]['qtd'] = qtd
         else:
             self.__chart[product_id]['qtd'] += qtd
+
+        product.stock -= qtd
+        product.save()
         
         self.__save()
 
@@ -36,6 +41,8 @@ class ShopChart():
         product_id = str(product.id)
 
         if product_id in self.__chart:
+            product.stock += self.__chart[product_id]['qtd']
+            product.save()
             del self.__chart[product_id]
 
         self.__save()
@@ -70,13 +77,30 @@ class ShopChart():
         
         return result
 
-    def clean_charts_button(self):
-        self.__chart = {}
-
-        self.__save()
-    
     def clean_charts(self, request):
-        for key in request.session.keys():
-            del request.session['key']
+        for item in self.__chart.values():
+            product = get_object_or_404(Product, id=int(item['id']))
+            product.stock += item['qtd']
+            product.save()
+
+        for key in list(request.session.keys()):
+            del request.session[key]
+        
+        request.session.modified = True
+
+    def buy_charts(self, request):
+        # I add the items again so that I can remove them if the purchase is made
+        for item in self.__chart.values():
+            product = get_object_or_404(Product, id=int(item['id']))
+            product.stock += item['qtd']
+            product.save()
+        
+        for item in self.__chart.values():
+            product = get_object_or_404(Product, id=int(item['id']))
+            product.stock -= item['qtd']
+            product.save()
+
+        for key in list(request.session.keys()):
+            del request.session[key]
         
         request.session.modified = True

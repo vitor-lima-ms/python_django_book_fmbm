@@ -26,5 +26,6 @@ urlpatterns = [
     path('help/', TemplateView.as_view(template_name='help.html'), name='help'),
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('', include('chart.urls'), name='chart'),
+    path('', include('orders.urls'), name='orders'),
     path('', include('main.urls'), name='main'),    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

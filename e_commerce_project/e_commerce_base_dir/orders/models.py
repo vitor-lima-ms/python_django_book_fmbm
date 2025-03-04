@@ -21,7 +21,9 @@ class Orders(models.Model):
     paid = models.BooleanField(default=False)
 
     class Meta:
-            ordering = ('-order_date',)
+        verbose_name = 'Orders'
+        verbose_name_plural = 'Orders'
+        ordering = ('-order_date',)
 
     def __str__(self):
         return f'Order #{self.id}'

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}| Obrigado pela compra!{% endblock title %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static "/css/complete.css" %}">
+{% endblock css %}
+
+{% block content %}
+<main>
+    <div id="thanks">
+        <h1>O número do seu pedido é #{{ order.id }}</h1>
+        <h2>Muito obrigado pela compra!</h2>
+    </div>        
+</main>
+{% endblock content %}

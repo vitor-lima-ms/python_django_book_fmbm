@@ -14,6 +14,8 @@ def add_to_chart(request, product_id: int):
 
     if form.is_valid():
         data = form.cleaned_data
+        if data['qtd'] > product.stock:
+            raise ValueError('Quantidade requerida maior que o estoque! Por favor, retorne à página do produto e selecione uma quantidade compatível com o estoque')
         chart.add(product, qtd=data['qtd'], att_qtd=data['att'])
 
     return redirect('chart:chart_details')       
@@ -42,6 +44,6 @@ def chart_details_view(request):
 
 def clean_all_items(request):
     chart: ShopChart = ShopChart(request)
-    chart.clean_charts_button()
+    chart.clean_charts(request)
 
     return redirect('chart:chart_details')

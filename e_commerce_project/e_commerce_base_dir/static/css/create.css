@@ -1,0 +1,78 @@
+#empty_chart{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #253237;
+}
+#empty_chart > img{
+    width: 300px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#order_resume {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    border-radius: 20px;
+    background-color: #253237;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+    color: #E0FBFC;
+    font-size: larger;
+}
+
+#order_resume table {
+    width: max-content;
+    border: 3px solid #9DB4C0;
+    border-collapse: collapse;
+    line-height: 2;
+}
+
+#order_resume table td, tr, th {
+    padding-right: 20px;
+    padding-left: 20px;
+    border: 3px solid #9DB4C0;
+}
+
+#final_form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    border-radius: 20px;
+    background-color: #253237;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+    color: #E0FBFC;
+    line-height: 2;
+    font-size: larger;
+}
+
+#final_form h2 {
+    margin-bottom: 0;
+}
+
+#send {
+    margin-top: 20px;
+    border-radius: 5px;
+    color: #253237;
+    font-family: Montserrat;
+    font-size: medium;
+    font-weight: bold;
+}

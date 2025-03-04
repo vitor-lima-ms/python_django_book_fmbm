@@ -24,7 +24,8 @@
             <div id="buy">
                 <form action="{% url 'chart:add_to_chart' product.id %}" method="post">
                     {% csrf_token %}
-                    {{ form }}                    
+                    Quantidade em estoque: {{ product.stock }}
+                    {{ form }}                   
                     <input type="submit" value="Adicionar ao carrinho">
                 </form>
             </div>
