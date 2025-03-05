@@ -17,7 +17,15 @@ def add_to_chart(request, product_id: int):
         data = form.cleaned_data
 
         if data['qtd'] > product.stock:
-            raise forms.ValidationError(('Quantidade requerida maior do que a existente em estoque.'), code='invalid')
+            chart: ShopChart = ShopChart(request)
+            product: Product = get_object_or_404(Product, id=product_id)
+            form: ShopChartForm = ShopChartForm(request.POST)
+            return render(request, 'products/details_stock_error.html', {
+                'chart': chart,
+                'product': product,
+                'form': form,
+                'msg': 'Quantidade adicionada maior que a quantidade em estoque!'
+            })
 
         chart.add(product, qtd=data['qtd'], att_qtd=data['att'])
 
