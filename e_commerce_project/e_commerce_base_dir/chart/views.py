@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 from main.models import Product
 from chart.chart import ShopChart
 from chart.forms import ShopChartForm
+from django import forms
 
 # Create your views here.
 
@@ -14,8 +15,10 @@ def add_to_chart(request, product_id: int):
 
     if form.is_valid():
         data = form.cleaned_data
+
         if data['qtd'] > product.stock:
-            raise ValueError('Quantidade requerida maior que o estoque! Por favor, retorne à página do produto e selecione uma quantidade compatível com o estoque')
+            raise forms.ValidationError(('Quantidade requerida maior do que a existente em estoque.'), code='invalid')
+
         chart.add(product, qtd=data['qtd'], att_qtd=data['att'])
 
     return redirect('chart:chart_details')       
